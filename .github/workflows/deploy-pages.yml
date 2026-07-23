@@ -1,0 +1,44 @@
+name: Deploy to GitHub Pages
+
+# Validate content, then publish the static app to the gh-pages branch on every
+# push to the working branch. No build step — the repo IS the site.
+
+on:
+  push:
+    branches:
+      - claude/ai-engineer-course-app-epzen2
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  validate-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate course content (full completeness check)
+        run: node tools/validate.js --complete
+
+      - name: Publish to gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Publish the current tree to gh-pages as a single flat commit.
+          git checkout --orphan gh-pages-tmp
+          git add -A
+          git commit -q -m "Deploy ${GITHUB_SHA}"
+          git push --force origin gh-pages-tmp:gh-pages

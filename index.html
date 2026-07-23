@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineer — Interactive Course</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body>
+<script>
+// ---- COURSE registry: must exist before any content script loads ----
+window.COURSE = {
+  modules: [],
+  exams: [],
+  widgets: [],
+  diagrams: [],
+  explainers: [],
+  drills: [],
+  missions: [],
+  register(m) { this.modules.push(m); },
+  registerExam(e) { this.exams.push(e); },
+  registerWidget(w) { this.widgets.push(w); },
+  registerDiagram(d) { this.diagrams.push(d); },
+  registerExplainer(x) { this.explainers.push(x); },
+  registerDrills(d) { this.drills.push(d); },
+  registerMission(m) { this.missions.push(m); }
+};
+</script>
+
+<!-- Track 1 — Core AI Engineering -->
+<script src="content/modules/m01-how-llms-work.js"></script>
+<script src="content/modules/m02-tokens-sampling.js"></script>
+<script src="content/modules/m03-prompt-engineering.js"></script>
+<script src="content/modules/m04-model-apis.js"></script>
+<script src="content/modules/m05-structured-outputs.js"></script>
+<script src="content/modules/m06-embeddings-vector-search.js"></script>
+<script src="content/modules/m07-rag.js"></script>
+<script src="content/modules/m08-context-engineering.js"></script>
+<script src="content/modules/m09-agents-loop.js"></script>
+<script src="content/modules/m10-agentic-systems.js"></script>
+<script src="content/modules/m11-evals.js"></script>
+<script src="content/modules/m12-observability.js"></script>
+<script src="content/modules/m13-safety-security.js"></script>
+
+<!-- Track 2 — Advanced & Production -->
+<script src="content/modules/m14-fine-tuning.js"></script>
+<script src="content/modules/m15-inference-internals.js"></script>
+<script src="content/modules/m16-open-models.js"></script>
+<script src="content/modules/m17-multimodal.js"></script>
+<script src="content/modules/m18-cost-latency.js"></script>
+<script src="content/modules/m19-production-patterns.js"></script>
+<script src="content/modules/m20-system-design.js"></script>
+<script src="content/modules/m21-frontier.js"></script>
+<script src="content/modules/m22-interview-career.js"></script>
+
+<!-- Interactive content -->
+<script src="content/explainers/core.js"></script>
+<script src="content/explainers/advanced.js"></script>
+<script src="content/diagrams/core.js"></script>
+<script src="content/diagrams/rag-agents.js"></script>
+<script src="content/diagrams/advanced.js"></script>
+<script src="content/widgets.js"></script>
+<script src="content/drills.js"></script>
+<script src="content/missions/missions.js"></script>
+<script src="content/exams/core-exam.js"></script>
+<script src="content/exams/advanced-exam.js"></script>
+
+<!-- Engine -->
+<script src="app.js"></script>
+</body>
+</html>
