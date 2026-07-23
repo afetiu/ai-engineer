@@ -816,6 +816,18 @@ COURSE.registerExam({
       ],
       answer: [1],
       explanation: 'Mature scoping ships the simplest design that meets the core requirement, backs it with evals and guardrails, proves it with metrics, and expands only as evidence and time permit. (A) over-promises autonomy under deadline pressure. (C) dropping evals/guardrails trades a demo for production risk. (D) defaulting to the biggest model everywhere wastes cost and latency without proven need.'
+    },
+    {
+      domain: 'Fine-tuning',
+      text: 'A team wants a 7B open model to reliably emit your internal ticket-triage JSON schema and adopt your terse house tone. Prompting plus few-shot gets ~85% schema-valid with inconsistent tone. They have ~4,000 clean labeled examples and a single 24GB GPU. What is the most appropriate next step (as of early 2026)?',
+      options: [
+        'Full-parameter fine-tune of the 7B on the 24GB GPU to maximize quality',
+        'QLoRA supervised fine-tune (4-bit frozen base + LoRA adapters) on the labeled set, then keep validating schema-conformance and tone on a held-out set',
+        'Fine-tune the model to also memorize the current ticket backlog so it needs no retrieval',
+        'Abandon the open model and route everything to a frontier API instead'
+      ],
+      answer: [1],
+      explanation: 'QLoRA (4-bit frozen base + small bf16 adapters) is exactly the fit-on-24GB technique for teaching a stable output format and tone from a few thousand examples — a format/behavior task, which is what fine-tuning is genuinely good at. (A) full-parameter tuning of a 7B needs weights plus optimizer state plus activations, overrunning 24GB and risking catastrophic forgetting. (C) memorizing the backlog is knowledge injection — unreliable and stale; that is retrieval\'s job. (D) discards the privacy/cost/control reasons for self-hosting when a targeted adapter would likely clear the bar.'
     }
 
   ]
