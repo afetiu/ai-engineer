@@ -3,6 +3,29 @@
    Warm parchment / study-desk palette.
    ============================================================ */
 
+/* Self-hosted Literata (SIL OFL 1.1) — a reading serif with real character.
+   Latin subset, woff2, so the app stays fully offline / no CDN. */
+@font-face {
+  font-family: "Literata";
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url("assets/fonts/literata-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Literata";
+  font-style: normal; font-weight: 600; font-display: swap;
+  src: url("assets/fonts/literata-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Literata";
+  font-style: normal; font-weight: 700; font-display: swap;
+  src: url("assets/fonts/literata-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Literata";
+  font-style: italic; font-weight: 400; font-display: swap;
+  src: url("assets/fonts/literata-italic-400.woff2") format("woff2");
+}
+
 :root {
   --bg: #f6f1e7;            /* parchment */
   --bg-deep: #efe7d7;       /* darker parchment */
@@ -31,8 +54,9 @@
   --radius: 12px;
   --radius-sm: 8px;
   --sidebar-w: 264px;
-  --font: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-read: "Literata", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
 
@@ -46,14 +70,17 @@ body {
   background-image: radial-gradient(circle at 15% 10%, rgba(200, 145, 42, .06), transparent 40%),
                     radial-gradient(circle at 85% 90%, rgba(180, 83, 31, .05), transparent 45%);
   color: var(--ink);
-  line-height: 1.6;
-  font-size: 15.5px;
+  line-height: 1.62;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 { font-family: var(--font); color: var(--ink); line-height: 1.25; }
-h1 { font-size: 1.9rem; margin: 0 0 .4rem; }
-h2 { font-size: 1.35rem; }
-h3 { font-size: 1.1rem; }
+h1, h2, h3, h4 { font-family: var(--font); color: var(--ink); line-height: 1.22; letter-spacing: -0.01em; }
+h1 { font-size: 2rem; margin: 0 0 .4rem; font-weight: 600; }
+h2 { font-size: 1.4rem; font-weight: 600; }
+h3 { font-size: 1.12rem; font-weight: 600; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
@@ -334,11 +361,18 @@ a.tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); text
 .acc.open .acc-body { display: block; }
 .acc-body > :first-child { margin-top: 10px; }
 
+/* Lesson prose reads like a well-set book: serif, roomy line-height. */
+.lesson-body { font-family: var(--font-read); font-size: 1.02rem; line-height: 1.72; }
+.lesson-body p { margin: 0 0 .85em; }
 .lesson-body h2, .lesson-body h3 { margin-top: 1.3em; }
 .lesson-body ul, .lesson-body ol { padding-left: 1.4em; }
 .lesson-body li { margin: 4px 0; }
 .lesson-body img, .lesson-body svg { max-width: 100%; }
 .lesson-body .tablewrap { overflow-x: auto; }
+/* Keep UI-flavoured elements inside prose on the sans/mono stack. */
+.lesson-body table, .lesson-body th, .lesson-body td,
+.lesson-body .callout .co-title, .lesson-body .pill, .lesson-body .btn { font-family: var(--font-ui); }
+.lesson-body code, .lesson-body pre { font-family: var(--font-mono); }
 
 /* ---------- Quiz ---------- */
 .q-option {
@@ -405,9 +439,9 @@ a.tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); text
 .fc-meta { text-align: center; font-size: .8rem; color: var(--ink-faint); margin-top: 8px; }
 
 /* ---------- Diagrams ---------- */
-.dg-wrap { display: grid; grid-template-columns: 1fr 280px; gap: 16px; align-items: start; }
-.dg-svgbox { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; overflow-x: auto; }
-.dg-svgbox svg { display: block; width: 100%; height: auto; min-width: 540px; }
+.dg-wrap { display: grid; grid-template-columns: 1fr 252px; gap: 18px; align-items: start; }
+.dg-svgbox { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; overflow-x: auto; }
+.dg-svgbox svg { display: block; width: 100%; height: auto; min-width: 660px; }
 .dg-node { cursor: pointer; }
 .dg-node rect, .dg-node ellipse {
   fill: var(--paper-2); stroke: var(--line-strong); stroke-width: 1.4;
